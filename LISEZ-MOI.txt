@@ -1,0 +1,63 @@
+CrownClown Speed DLL — projet expérimental
+==========================================
+
+Exécutable analysé
+------------------
+Nom : NSUNS4.exe
+Taille : 24 686 592 octets
+SHA-256 : 411c06f93a952888767ac5ca73ec3cee85eb1d2bb39fab1dcde43ac1d54b0e1f
+Architecture : Windows x64
+
+Pourquoi XINPUT9_1_0.dll ?
+-------------------------
+Cette version de NSUNS4.exe importe directement :
+- XInputGetState
+- XInputSetState
+
+Elle importe aussi :
+- QueryPerformanceCounter
+- GetTickCount
+- timeGetTime
+
+Le projet crée donc une DLL proxy XINPUT9_1_0.dll qui transmet les fonctions
+de manette à la vraie DLL Windows, puis modifie le temps vu par le jeu.
+
+Touches
+-------
+F6 : 1.00x
+F7 : 1.10x
+F8 : 1.20x
+F9 : 1.30x
+
+Compilation
+-----------
+1. Installer Visual Studio Build Tools 2022.
+2. Cocher "Desktop development with C++".
+3. Installer CMake si ce composant n'est pas déjà présent.
+4. Double-cliquer sur build_x64.bat.
+5. Récupérer :
+   build\Release\XINPUT9_1_0.dll
+
+Installation dans CrownClown
+----------------------------
+1. Faire une copie de sauvegarde du dossier du jeu.
+2. Copier XINPUT9_1_0.dll à côté de NSUNS4.exe.
+3. Lancer le jeu normalement.
+4. Tester d'abord F7.
+5. Appuyer sur F6 avant les menus ou cinématiques.
+6. Pour désinstaller, supprimer XINPUT9_1_0.dll.
+
+Limites
+-------
+- Ce prototype accélère l'horloge globale du jeu, pas uniquement les combats.
+- Le son peut ne pas suivre parfaitement.
+- Une vitesse trop élevée peut provoquer des entrées répétées ou des animations
+  instables.
+- Utilisation hors ligne uniquement.
+- Aucun fichier du jeu n'est modifié définitivement.
+
+IMPORTANT
+---------
+Je n'ai pas compilé la DLL dans cet environnement, car il ne contient pas la
+chaîne de compilation Windows x64 nécessaire. Le ZIP contient le projet prêt
+à compiler, mais pas une DLL déjà testée sur ton ordinateur.
