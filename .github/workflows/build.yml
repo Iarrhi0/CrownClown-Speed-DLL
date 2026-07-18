@@ -1,0 +1,27 @@
+name: Compiler la DLL
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Recuperer les fichiers
+        uses: actions/checkout@v4
+
+      - name: Configurer le projet
+        run: cmake -S . -B build -A x64
+
+      - name: Compiler
+        run: cmake --build build --config Release
+
+      - name: Publier la DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: CrownClown-Speed-DLL
+          path: build/Release/XINPUT9_1_0.dll
